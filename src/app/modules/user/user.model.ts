@@ -1,5 +1,7 @@
 import {  Schema, model } from "mongoose";
+import bcrypt from 'bcrypt';
 import { AddressType, FullNameType, OrderType, UserModel, UserType } from "./user.interface";
+import config from "../../config";
 
 
 const fullNameSchema= new Schema<FullNameType>({
@@ -63,6 +65,18 @@ const userSchema= new Schema<UserType,UserModel>({
     address: { type: addressSchema, required: [true, 'Address are required']},
     order: { type: orderSchema, required: false},
    
+});
+
+userSchema.pre('save', async function (next) {
+
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this; // doc
+  // hashing password and save into DB
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
 });
 
 
