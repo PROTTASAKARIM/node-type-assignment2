@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import { AddressType, FullNameType, OrderType, UserType } from "./user.interface";
+import {  Schema, model } from "mongoose";
+import { AddressType, FullNameType, OrderType, UserModel, UserType } from "./user.interface";
 
 
 const fullNameSchema= new Schema<FullNameType>({
@@ -51,7 +51,7 @@ const orderSchema= new Schema<OrderType>({
       },
    
 });
-const userSchema= new Schema<UserType>({
+const userSchema= new Schema<UserType,UserModel>({
     userId: { type: Number, required: [true, 'userId is required'], unique: true },
     username: { type: String, required: [true, 'username is required'] },
     password: { type: String, required: [true, 'password is required'] },
@@ -66,9 +66,15 @@ const userSchema= new Schema<UserType>({
 });
 
 
-userSchema.statics.isUserExists = async function (id: string) {
-    const existingUser = await User.findOne({ userId: id });
-    return existingUser;
-  };
 
-export const User= model<UserType>("User",userSchema)
+// userSchema.statics.isUserExists = async function (userId: number) {
+//   const existingUser = await User.findOne({ userId });
+//   return existingUser;
+// };
+userSchema.statics.userExistMethods = async function (userId:number) {
+  const existingUser= await User.findOne({userId})
+  return existingUser
+};
+
+
+export const User = model<UserType, UserModel>("User", userSchema);

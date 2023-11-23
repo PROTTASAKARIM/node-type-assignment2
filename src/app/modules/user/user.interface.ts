@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 
 
 export type FullNameType = {
@@ -27,4 +28,10 @@ export type UserType = {
     order?: OrderType;
   };
 
+  export interface UserModel extends Model<UserType>{
+    userExistMethods(userId:number):Promise<UserType |null>
+  }
+  // export interface UserModel extends Model<UserType>{
+  //   isUserExits(userId:number):Promise<UserType | null>
+  // }
  
