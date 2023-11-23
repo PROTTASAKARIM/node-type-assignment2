@@ -79,6 +79,11 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.post('save',function(doc,next){
+  doc.password='';
+  next()
+})
+
 
 
 // userSchema.statics.isUserExists = async function (userId: number) {
