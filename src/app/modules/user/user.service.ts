@@ -10,9 +10,32 @@ const createUserIntoDB = async (userData: UserType) => {
   const result = await User.create(userData);
   return result;
 };
+const updateUserByUserId = async (userId: number,updatedData:UserType) => {
+    if (await User.userExistMethods(userId)) {
+        const result = await User.updateOne({ userId }, { ...updatedData });
+        return result;
+      }else{
+        throw new Error('User not found');
+      }
+};
 const findUserByUserId = async (userId: number) => {
-  const result = await User.aggregate([{ $match: { userId } }]);
-  return result;
+    if (await User.userExistMethods(userId)) {
+        const result = await User.findOne({userId}).select({
+          _id: 0,
+          userId:1,
+          username:1,
+          fullName:1,
+          age:1,
+          email:1,
+          isActive: 1,
+          hobbies: 1,
+          address: 1,
+          orders: 1,
+        }).exec()
+        return result;
+      }else{
+        throw new Error('User not found');
+      }
 };
 const findUserByUserIdWithSelectedValues = async (userId: number) => {
   const result = await User.aggregate([
@@ -51,4 +74,5 @@ export const UserServices = {
   findUserByUserId,
   findUserByUserIdWithSelectedValues,
   findUsersWithSelectedValues,
+  updateUserByUserId
 };
