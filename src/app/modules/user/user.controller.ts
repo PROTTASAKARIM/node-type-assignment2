@@ -109,10 +109,40 @@ const updateUserByUserId = async (req: Request, res: Response) => {
     });
   }
 };
+const deleteUserByUserId = async (req: Request, res: Response) => {
+  const userId=parseFloat(req.params.userId);
+  try {
+    const result = await UserServices.deleteUserByUserId(userId);
+  if(result.acknowledged){
+    res.status(200).json({
+      success: true,
+      message: 'User is deleted successfully',
+      data: null,
+    });
+  }else{
+    res.status(404).json({
+      success: false,
+      message: 'User delete Problem',
+    });
+  }
+
+  
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: 'Users not found',
+      err: {
+        code:404,
+        description:"User not found!"
+      },
+    });
+  }
+};
 
 export const UserControllers = {
   createUser,
   getAllUser,
   getUserByUserId,
-  updateUserByUserId
+  updateUserByUserId,
+  deleteUserByUserId
 };

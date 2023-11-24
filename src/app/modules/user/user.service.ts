@@ -69,10 +69,20 @@ const findUsersWithSelectedValues = async () => {
   return result;
 };
 
+const deleteUserByUserId = async (userId: number) => {
+    if (await User.userExistMethods(userId)) {
+        const result = await User.deleteOne({ userId });
+        return result;
+      }else{
+        throw new Error('User not found');
+      }
+};
+
 export const UserServices = {
   createUserIntoDB,
   findUserByUserId,
   findUserByUserIdWithSelectedValues,
   findUsersWithSelectedValues,
-  updateUserByUserId
+  updateUserByUserId,
+  deleteUserByUserId
 };
