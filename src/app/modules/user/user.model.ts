@@ -74,7 +74,7 @@ const userSchema = new Schema<UserType, UserModel>({
   isActive: { type: Boolean, required: [true, 'Status is required'] },
   hobbies: { type: [String], required: [true, 'Hobbies are required'] },
   address: { type: addressSchema, required: [true, 'Address are required'] },
-  order: { type: [orderSchema] },
+  orders: { type: [orderSchema] ,required:false},
 });
 
 userSchema.pre('save', async function (next) {

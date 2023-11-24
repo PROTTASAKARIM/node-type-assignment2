@@ -24,7 +24,7 @@ export type UserType = {
   isActive: boolean;
   hobbies: Array<string>;
   address: AddressType;
-  order?: Array<OrderType>;
+  orders?: Array<OrderType>;
 };
 
 export interface UserModel extends Model<UserType> {

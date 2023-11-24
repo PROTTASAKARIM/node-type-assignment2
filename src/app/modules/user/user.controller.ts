@@ -30,7 +30,7 @@ const createUser = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(404).json({
       success: false,
-      message: 'User Already Exists',
+      message: 'User Creation Problem. Give Correct Input',
       err: err,
     });
   }
@@ -72,6 +72,47 @@ const getUserByUserId = async (req: Request, res: Response) => {
     });
   }
 };
+const getUserOrdersByUserId = async (req: Request, res: Response) => {
+  const userId=parseFloat(req.params.userId);
+  try {
+    const result = await UserServices.findUserOrdersByUserId(userId);
+    res.status(200).json({
+      success: true,
+      message: 'Order fetched successfully!',
+      data: result,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: 'Users not found',
+      err: {
+        code:404,
+        description:"User not found!"
+      },
+    });
+  }
+};
+const getUserOrdersTotalPriceByUserId = async (req: Request, res: Response) => {
+  const userId=parseFloat(req.params.userId);
+  try {
+    const result = await UserServices.findUserOrdersByUserIdTotalPrice(userId);
+    res.status(200).json({
+      success: true,
+      message: 'Total price calculated successfully!',
+      data: result,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: 'Users not found',
+      err: {
+        code:404,
+        description:"User not found!"
+      },
+    });
+  }
+};
+
 const updateUserByUserId = async (req: Request, res: Response) => {
   const userId=parseFloat(req.params.userId);
   const updatedData= req.body
@@ -109,6 +150,37 @@ const updateUserByUserId = async (req: Request, res: Response) => {
     });
   }
 };
+const updateUserOrdersByUserId = async (req: Request, res: Response) => {
+  const userId=parseFloat(req.params.userId);
+  const order= req.body
+  try {
+    const result = await UserServices.updateOrdersByUserId(userId,order);
+    if(result.acknowledged){
+      res.status(200).json({
+        success: true,
+        message: 'Order created successfully!',
+        data: null,
+      });
+    }else{
+      res.status(404).json({
+        success: false,
+        message: 'Order update problem!',
+      });
+    }
+
+  
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: 'Users not found',
+      err: {
+        code:404,
+        description:"User not found!"
+      },
+    });
+  }
+};
+
 const deleteUserByUserId = async (req: Request, res: Response) => {
   const userId=parseFloat(req.params.userId);
   try {
@@ -144,5 +216,8 @@ export const UserControllers = {
   getAllUser,
   getUserByUserId,
   updateUserByUserId,
+  updateUserOrdersByUserId,
+  getUserOrdersByUserId,
+  getUserOrdersTotalPriceByUserId,
   deleteUserByUserId
 };
