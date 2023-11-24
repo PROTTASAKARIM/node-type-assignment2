@@ -2,7 +2,7 @@ import { UserType } from './user.interface';
 import { User } from './user.model';
 
 const createUserIntoDB = async (userData: UserType) => {
-  console.log('userData', userData);
+//   console.log('userData', userData);
 
   if (await User.userExistMethods(userData.userId)) {
     throw new Error('User already exists!');
