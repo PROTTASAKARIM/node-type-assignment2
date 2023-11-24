@@ -53,7 +53,7 @@ const userValidationSchema = z.object({
     isActive:z.boolean(),
     hobbies:  z.string().array(),
     address:addressValidationSchema,
-    order: orderValidationSchema.optional(),
+    orders: z.array(orderValidationSchema).optional(),
    
   });
 

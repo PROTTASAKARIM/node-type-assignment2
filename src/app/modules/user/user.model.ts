@@ -43,7 +43,7 @@ const orderSchema= new Schema<OrderType>({
     productName: {
         type: String,
         trim: true,
-        maxlength: [40, 'Street Name can not be more than 20 characters'],
+        maxlength: [40, 'Product Name can not be more than 40 characters'],
       },
       price: {
         type: Number,
@@ -63,7 +63,7 @@ const userSchema= new Schema<UserType,UserModel>({
     isActive: { type: Boolean, required: [true, 'Status is required']},
     hobbies: { type: [String], required: [true, 'Hobbies are required']},
     address: { type: addressSchema, required: [true, 'Address are required']},
-    order: { type: orderSchema, required: false},
+    order: { type: [orderSchema]},
    
 });
 
@@ -80,8 +80,9 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.post('save',function(doc,next){
-  doc.password='';
-  next()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const { password, ...newDocWithoutPassword } = doc.toObject();
+  next();
 })
 
 
