@@ -105,4 +105,23 @@ Here in :userId we have to give the value useId for which we want to see the ord
 ## Get orders Total of a user with userId by using Get method in https://lv2-assignment2.vercel.app/api/users/:userId/orders/total-price
 Here in :userId we have to give the value useId for which we want to see the orders total Calculated Price.If the user is not present it will show Error massage.
 
+# Run Project Locally
+Clone get repository and run npm install. So all the dependencies will be install.
+Then To build with 
+```
+npm run build
+```
+TO run the server give this command
+```
+npm run start:dev
+```
+After starting the server. We can run our project locally on http://localhost:5000/ and we can access the routes
+## POST a user in http://localhost:5000/api/users 
+## Get All Users http://localhost:5000/api/users 
+## Get a user With Given userId in this link http://localhost:5000/api/users/:userId 
+## Update a user with userId by using PUT method in http://localhost:5000/api/users/:userId 
+## Delete a user with userId by using Delete method in http://localhost:5000/api/users/:userId 
+## Update orders of a user with userId by using PUT method in http://localhost:5000/api/users/:userId/orders
+## Get orders of a user with userId by using Get method in http://localhost:5000/api/users/:userId/orders
+## Get orders Total of a user with userId by using Get method in http://localhost:5000/api/users/:userId/orders/total-price
 
