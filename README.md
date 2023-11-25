@@ -47,7 +47,7 @@ Here user userId and username should be unique. If there is any user before has 
     "err": {}
 }
 ```
-If there is any type error in given input for example if we give email as "jhon" the our route will give type validation error.
+If there is any type error in given input for example if we give email as "jhon" the our route will give type validation error.I have done type validation  by using zod.
 ```
 {
     "success": false,
@@ -67,5 +67,42 @@ If there is any type error in given input for example if we give email as "jhon"
     }
 }
 ```
-I have done type validation  by using zod.
+## Get All Users https://lv2-assignment2.vercel.app/api/users 
+We can see all the users in the that we have successfully created containing username, fullName, age, email, address fields.
+
+## Get a user With Given userId in this link https://lv2-assignment2.vercel.app/api/users/:userId 
+Here in :userId we have to give the value useId for which we want to see the result. 
+If the user is not present it will show Error massage.
+```
+{
+    "success": false,
+    "message": "Users not found",
+    "err": {
+        "code": 404,
+        "description": "User not found!"
+    }
+}
+```
+## Update a user with userId by using PUT method in https://lv2-assignment2.vercel.app/api/users/:userId 
+Here in :userId we have to give the value useId for which we want to update. To update the user will have to give full information of the user in the request body. If the user is not present it will show Error massage.
+
+## Delete a user with userId by using Delete method in https://lv2-assignment2.vercel.app/api/users/:userId 
+Here in :userId we have to give the value useId for which we want to Delete. If the user is not present it will show Error massage.
+
+## Update orders of a user with userId by using PUT method in https://lv2-assignment2.vercel.app/api/users/:userId/orders
+Here in :userId we have to give the value useId for which we want to update the orders. To update the orders will have to give the order information in the request body. If the user is not present it will show Error massage.
+
+sample input
+```
+ {
+            "productName": "Sample Product2",
+            "price": 29.99,
+            "quantity": 2
+        }
+```
+## Get orders of a user with userId by using Get method in https://lv2-assignment2.vercel.app/api/users/:userId/orders
+Here in :userId we have to give the value useId for which we want to see the orders.If the user is not present it will show Error massage.
+## Get orders Total of a user with userId by using Get method in https://lv2-assignment2.vercel.app/api/users/:userId/orders/total-price
+Here in :userId we have to give the value useId for which we want to see the orders total Calculated Price.If the user is not present it will show Error massage.
+
 
